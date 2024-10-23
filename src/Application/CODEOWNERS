@@ -1,0 +1,5 @@
+# Default code owner for all files
+* @pfranco22
+
+# Code owner for specific files
+/src/Application/test/ @pfranco@microsoft.com
