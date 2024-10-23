@@ -109,7 +109,16 @@ namespace RazorPagesTestSample.Pages
         public static void WriteToDirectory(ZipArchiveEntry entry, string destDirectory)
         {
             string destFileName = Path.Combine(destDirectory, entry.FullName);
-            entry.ExtractToFile(destFileName);
+        
+            // Ensure the destination path is within the intended directory
+            string fullPath = Path.GetFullPath(destFileName);
+            
+            if (!fullPath.StartsWith(Path.GetFullPath(destDirectory), StringComparison.OrdinalIgnoreCase))
+            {
+                throw new UnauthorizedAccessException("Attempt to write outside of the destination directory.");
+            }
+        
+            entry.ExtractToFile(fullPath);
         }
     }
 }
