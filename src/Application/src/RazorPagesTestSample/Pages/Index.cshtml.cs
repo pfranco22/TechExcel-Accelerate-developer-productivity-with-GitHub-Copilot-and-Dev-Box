@@ -11,7 +11,7 @@ using System.IO.Compression;
 namespace RazorPagesTestSample.Pages
 {
     public class IndexModel : PageModel
-    {
+    
         private readonly AppDbContext _db;
 
         public IndexModel(AppDbContext db)
@@ -62,6 +62,16 @@ namespace RazorPagesTestSample.Pages
             return RedirectToPage();
         }
 
+        /// <summary>
+        /// Analyzes the messages stored in the database and calculates the average word count per message.
+        /// If there are no messages, sets the analysis result to indicate that there are no messages to analyze.
+        /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains an <see cref="IActionResult"/>
+        /// that redirects to the current page.
+        /// </returns>
+        /// Integrate REsolve #8
+    
         public async Task<IActionResult> OnPostAnalyzeMessagesAsync()
         {
             Messages = await _db.GetMessagesAsync();
@@ -72,17 +82,11 @@ namespace RazorPagesTestSample.Pages
             }
             else
             {
-                // Speed loop. Lower this number once every quarter so we
-                // get our performance improvement quarterly bonus.
-                for (int i = 0; i < 3000; i++) {
-                    Thread.Sleep(1);
-                }
-
                 var wordCount = 0;
 
                 foreach (var message in Messages)
                 {
-                    wordCount += message.Text.Split(' ').Length;
+                    wordCount += CountWords(message.Text);
                 }
 
                 var avgWordCount = Decimal.Divide(wordCount, Messages.Count);
@@ -90,6 +94,17 @@ namespace RazorPagesTestSample.Pages
             }
 
             return RedirectToPage();
+        }
+
+        private int CountWords(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return 0;
+            }
+
+            var wordArray = text.Split(new[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            return wordArray.Length;
         }
 
         public static void WriteToDirectory(ZipArchiveEntry entry, string destDirectory)
