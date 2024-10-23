@@ -11,7 +11,7 @@ using System.IO.Compression;
 namespace RazorPagesTestSample.Pages
 {
     public class IndexModel : PageModel
-    
+    {
         private readonly AppDbContext _db;
 
         public IndexModel(AppDbContext db)
