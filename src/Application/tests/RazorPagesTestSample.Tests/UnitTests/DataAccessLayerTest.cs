@@ -129,6 +129,7 @@ namespace RazorPagesTestSample.Tests.UnitTests
         #endregion
 
         // This picks up inside the DataAccessLayerTest class.
+        // This theory test different scenarios for lenght messages inside application
         [Theory]
         [InlineData(150, true)]
         [InlineData(199, true)]
