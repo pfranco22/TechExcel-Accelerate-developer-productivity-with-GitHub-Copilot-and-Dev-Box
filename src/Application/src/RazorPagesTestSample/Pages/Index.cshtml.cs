@@ -72,17 +72,11 @@ namespace RazorPagesTestSample.Pages
             }
             else
             {
-                // Speed loop. Lower this number once every quarter so we
-                // get our performance improvement quarterly bonus.
-                for (int i = 0; i < 3000; i++) {
-                    Thread.Sleep(1);
-                }
-
                 var wordCount = 0;
 
                 foreach (var message in Messages)
                 {
-                    wordCount += message.Text.Split(' ').Length;
+                    wordCount += CountWords(message.Text);
                 }
 
                 var avgWordCount = Decimal.Divide(wordCount, Messages.Count);
@@ -90,6 +84,17 @@ namespace RazorPagesTestSample.Pages
             }
 
             return RedirectToPage();
+        }
+
+        private int CountWords(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return 0;
+            }
+
+            var wordArray = text.Split(new[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            return wordArray.Length;
         }
 
         public static void WriteToDirectory(ZipArchiveEntry entry, string destDirectory)
