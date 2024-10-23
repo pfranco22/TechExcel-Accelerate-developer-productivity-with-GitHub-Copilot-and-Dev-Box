@@ -11,7 +11,7 @@ using System.IO.Compression;
 namespace RazorPagesTestSample.Pages
 {
     public class IndexModel : PageModel
-    {
+    
         private readonly AppDbContext _db;
 
         public IndexModel(AppDbContext db)
@@ -62,6 +62,15 @@ namespace RazorPagesTestSample.Pages
             return RedirectToPage();
         }
 
+        /// <summary>
+        /// Analyzes the messages stored in the database and calculates the average word count per message.
+        /// If there are no messages, sets the analysis result to indicate that there are no messages to analyze.
+        /// </summary>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains an <see cref="IActionResult"/>
+        /// that redirects to the current page.
+        /// </returns>
+    
         public async Task<IActionResult> OnPostAnalyzeMessagesAsync()
         {
             Messages = await _db.GetMessagesAsync();
