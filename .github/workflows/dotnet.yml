@@ -3,7 +3,7 @@ name: .NET CI
 env:
   registryName: yhowoey4lir6ompnpreg.azurecr.io
   repositoryName: techexcel/dotnetcoreapp
-  dockerFolderPath: ./src/Application/src/RazorPagesTestSample
+  dockerFolderPath: src/Application/src/RazorPagesTestSample
   tag: ${{github.run_number}}
 
 on:
