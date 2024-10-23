@@ -67,7 +67,7 @@ jobs:
     needs: dockerBuildPush
     environment:
       name: dev
-      url: https://pfranco22-dev.azurewebsites.net/
+      url: https://yhowoey4lir6o-dev.azurewebsites.net/
     
     steps:
       - name: 'Login via Azure CLI'
@@ -77,7 +77,7 @@ jobs:
 
       - uses: azure/webapps-deploy@v2
         with:
-          app-name: 'pfranco22-dev'
+          app-name: 'yhowoey4lir6o-dev'
           images: yhowoey4lir6ompnpreg.azurecr.io/techexcel/dotnetcoreapp:${{github.run_number}}
 
   deploy-to-test:
@@ -86,7 +86,7 @@ jobs:
     needs: deploy-to-dev
     environment:
       name: test
-      url: https://pfranco22-test.azurewebsites.net/
+      url: https://yhowoey4lir6o-test.azurewebsites.net/
     
     steps:
     - uses: actions/checkout@v3
@@ -98,7 +98,7 @@ jobs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'pfranco22-test'
+        app-name: 'yhowoey4lir6o-test'
         images: yhowoey4lir6ompnpreg.azurecr.io/techexcel/dotnetcoreapp:${{github.run_number}}
 
   deploy-to-prod:
@@ -107,7 +107,7 @@ jobs:
     needs: deploy-to-test
     environment:
       name: prod
-      url: https://pfranco22-prod.azurewebsites.net/
+      url: https://yhowoey4lir6o-prod.azurewebsites.net/
     
     steps:
     - uses: actions/checkout@v3
@@ -119,5 +119,5 @@ jobs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'pfranco22-prod'
+        app-name: 'yhowoey4lir6o-prod'
         images: yhowoey4lir6ompnpreg.azurecr.io/techexcel/dotnetcoreapp:${{github.run_number}}
