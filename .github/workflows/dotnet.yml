@@ -77,7 +77,7 @@ jobs:
 
       - uses: azure/webapps-deploy@v2
         with:
-          app-name: '{your_prefix}-dev'
+          app-name: 'pfranco22-dev'
           images: yhowoey4lir6ompnpreg.azurecr.io/techexcel/dotnetcoreapp:${{github.run_number}}
 
   deploy-to-test:
