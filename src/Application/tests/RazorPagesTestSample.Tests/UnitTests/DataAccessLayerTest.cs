@@ -3,8 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
+using System.ComponentModel.DataAnnotations;
 using RazorPagesTestSample.Data;
-usiing System.ComponentModel.DataAnnotations;
+
 
 namespace RazorPagesTestSample.Tests.UnitTests
 {
@@ -42,6 +43,8 @@ namespace RazorPagesTestSample.Tests.UnitTests
 
                 // Act
                 await db.AddMessageAsync(expectedMessage);
+
+                var fakeMessage = new Message() { Id = recId, Text = "Invalid!" };
 
                 // Assert
                 var actualMessage = await db.FindAsync<Message>(recId);
@@ -148,7 +151,7 @@ namespace RazorPagesTestSample.Tests.UnitTests
                 var expectedMessage = new Message() { Id = recId, Text = new string('X', messageLength) };
 
                 // Act
-                var isValidMessage = Validator.TryValidateObject(expectedMessage, new ValidationContext(expectedMessage), null, validateAllProperties: true);
+                var isValidMessage = await Task.Run(() => Validator.TryValidateObject(expectedMessage, new ValidationContext(expectedMessage), null, validateAllProperties: true));
 
                 // Assert
                 Assert.Equal(expectedValidMessage, isValidMessage);
